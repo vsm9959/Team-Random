@@ -5,10 +5,21 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <h1>GARAGE SALE</h1>
+<p>Your search for garage sales ends here</p>
 </head>
 <body>
 
 <%= yield %>
 
+<% if current_user %> 
+     Hi 
+    <%= current_user.first_name %>
+    <%= current_user.last_name %> 
+    <%= link_to "Log out", logout_path, method: "delete" %> 
+<% else %> 
+    <%= link_to "Login", 'login' %></a> 
+    <%= link_to "Signup", 'signup' %></a> 
+<% end %>
 </body>
 </html>
