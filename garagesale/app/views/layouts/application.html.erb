@@ -7,11 +7,6 @@
   <%= csrf_meta_tags %>
   <h1>GARAGE SALE</h1>
 <p>Your search for garage sales ends here</p>
-</head>
-<body>
-
-<%= yield %>
-
 <% if current_user %> 
      Hi 
     <%= current_user.first_name %>
@@ -21,5 +16,8 @@
     <%= link_to "Login", '/login' %></a> 
     <%= link_to "Signup", '/signup' %></a> 
 <% end %>
+</head>
+<body>
+<%= yield %>
 </body>
 </html>
