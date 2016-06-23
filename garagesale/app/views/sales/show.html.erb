@@ -40,5 +40,10 @@
   <%= @sale.zip_code %>
 </p>
 
+<p>
+  <strong>Photo</strong>
+  <%= image_tag @sale.image.url(:medium) %>
+</p>
+
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
 <%= link_to 'Back', sales_path %>

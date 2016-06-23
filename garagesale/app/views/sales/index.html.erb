@@ -13,6 +13,7 @@
       <th>State</th>
       <th>Posted date</th>
       <th>Zip code</th>
+      <th>Photo</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
         <td><%= sale.state %></td>
         <td><%= sale.posted_date %></td>
         <td><%= sale.zip_code %></td>
+        <td><%= image_tag sale.image.url(:medium) %></td>
         <td><%= link_to 'Show', sale %></td>
         <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
         <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>

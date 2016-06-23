@@ -43,6 +43,9 @@
     <%= f.label :zip_code %><br>
     <%= f.number_field :zip_code %>
   </div>
+  <div class="field">
+    <%= f.file_field :image, as: :file %><br>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
