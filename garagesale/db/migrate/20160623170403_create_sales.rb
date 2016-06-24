@@ -9,7 +9,10 @@ class CreateSales < ActiveRecord::Migration
       t.string :state
       t.datetime :posted_date
       t.integer :zip_code
+      t.integer :user_id
       t.timestamps null: false
     end
   end
+  
+  add_index :sales, :user_id
 end
