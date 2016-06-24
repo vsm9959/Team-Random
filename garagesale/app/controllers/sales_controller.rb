@@ -14,7 +14,7 @@ class SalesController < ApplicationController
 
   # GET /sales/new
   def new
-    @sale = Sale.new
+    @sale = @current_user.sales.create
   end
 
   # GET /sales/1/edit
@@ -24,7 +24,7 @@ class SalesController < ApplicationController
   # POST /sales
   # POST /sales.json
   def create
-    @sale = Sale.new(sale_params)
+    @sale = @current_user.sales.create(sale_params)
 
     respond_to do |format|
       if @sale.save
@@ -40,8 +40,10 @@ class SalesController < ApplicationController
   # PATCH/PUT /sales/1
   # PATCH/PUT /sales/1.json
   def update
-    respond_to do |format|
-      if @sale.update(sale_params)
+      respond_to do |format|
+      if @sale.user_id != current_user
+        format.html { redirect_to sales_url, notice: 'You do not have authorization to update the sale.' }
+      elsif @sale.update(sale_params)  
         format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
         format.json { render :show, status: :ok, location: @sale }
       else
@@ -54,11 +56,14 @@ class SalesController < ApplicationController
   # DELETE /sales/1
   # DELETE /sales/1.json
   def destroy
-    @sale.destroy
-    respond_to do |format|
-      format.html { redirect_to sales_url, notice: 'Sale was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+      respond_to do |format|
+        if @sale.user_id != current_user
+          format.html { redirect_to sales_url, notice: 'You do not have authorization to delete the sale.' }
+        else @sale.destroy
+          format.html { redirect_to sales_url, notice: 'Sale was successfully deleted.' }
+          format.json { head :no_content }
+        end
+      end
   end
 
   private
@@ -69,6 +74,6 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.require(:sale).permit(:title, :description, :address_line1, :address_line2, :city, :state, :posted_date, :zip_code, :image, :image_file_name)
+      params.require(:sale).permit(:title, :description, :address_line1, :address_line2, :city, :state, :posted_date, :zip_code, :image, :image_file_name, session[:user_id])
     end
 end
