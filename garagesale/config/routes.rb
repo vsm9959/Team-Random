@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :sales
+ 
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'sales#index'
   get '/signup' => 'users#new'
-  resources :users
+  resources :users 
+  resources :sales
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
@@ -60,4 +61,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+   
 end

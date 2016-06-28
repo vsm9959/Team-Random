@@ -46,6 +46,10 @@
   <div class="field">
     <%= f.file_field :image, as: :file %><br>
   </div>
+  <div>
+    <%= f.label 'rfid_tag', 'RFID Tag' %>
+    <%= f.hidden_field :user_auth_token, :value => @current_user.auth_token %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

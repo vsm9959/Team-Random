@@ -7,7 +7,7 @@ class UsersController < ApplicationController
         respond_to do |format|
             if @user.save
                 UserMailer.welcome_email(@user).deliver_now
-                session[:user_id] =@user.id
+                session[:user_auth_token] = @user.auth_token
              format.html{   redirect_to '/'}
             else
                 redirect_to '/signup'

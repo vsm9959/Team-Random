@@ -13,5 +13,5 @@ class CreateSales < ActiveRecord::Migration
     end
   end
   
-  add_index :sales, :user_id
+  add_index :sales, :user_auth_token
 end

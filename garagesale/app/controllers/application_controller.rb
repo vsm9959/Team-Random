@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   helper_method :current_user
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by_auth_token( session[:user_auth_token]) if session[:user_auth_token]
   end
   def require_user
     redirect_to '/login' unless current_user

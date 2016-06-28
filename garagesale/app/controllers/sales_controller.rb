@@ -14,7 +14,7 @@ class SalesController < ApplicationController
 
   # GET /sales/new
   def new
-    @sale = @current_user.sales.create
+    @sale = Sale.new
   end
 
   # GET /sales/1/edit
@@ -24,16 +24,17 @@ class SalesController < ApplicationController
   # POST /sales
   # POST /sales.json
   def create
-    @sale = @current_user.sales.create(sale_params)
-
+    @sale = Sale.create(sale_params)
     respond_to do |format|
-      if @sale.save
-        format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
-        format.json { render :show, status: :created, location: @sale }
-      else
-        format.html { render :new }
-        format.json { render json: @sale.errors, status: :unprocessable_entity }
-      end
+    #if @sale.user_auth_token != @current_user.auth_token
+     # format.html { redirect_to sales_url, notice: 'You do not have authorization to creat a new sale.' }
+        if @sale.save
+          format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
+          format.json { render :show, status: :created, location: @sale }
+        else
+          format.html { render :new }
+          format.json { render json: @sale.errors, status: :unprocessable_entity }
+        end
     end
   end
 
@@ -41,7 +42,7 @@ class SalesController < ApplicationController
   # PATCH/PUT /sales/1.json
   def update
       respond_to do |format|
-      if @sale.user_id != current_user
+      if @sale.user_auth_token != @current_user.auth_token
         format.html { redirect_to sales_url, notice: 'You do not have authorization to update the sale.' }
       elsif @sale.update(sale_params)  
         format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
@@ -57,7 +58,7 @@ class SalesController < ApplicationController
   # DELETE /sales/1.json
   def destroy
       respond_to do |format|
-        if @sale.user_id != current_user
+        if @sale.user_auth_token != @current_user.auth_token
           format.html { redirect_to sales_url, notice: 'You do not have authorization to delete the sale.' }
         else @sale.destroy
           format.html { redirect_to sales_url, notice: 'Sale was successfully deleted.' }
@@ -74,6 +75,6 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.require(:sale).permit(:title, :description, :address_line1, :address_line2, :city, :state, :posted_date, :zip_code, :image, :image_file_name, session[:user_id])
+      params.require(:sale).permit(:title, :description, :address_line1, :address_line2, :city, :state, :posted_date, :zip_code, :image, :image_file_name, :user_auth_token)
     end
 end
