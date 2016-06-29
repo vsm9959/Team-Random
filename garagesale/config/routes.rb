@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
  
+ # get 'password_resets/new'
+
+  #get 'password_resets/edit'
+
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -13,6 +17,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
