@@ -4,6 +4,9 @@
   <title>Garagesale</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag '//maps.google.com/maps/api/js?v=3.23&key=AIzaSyAfRG0w3bbzFjG5NIHDMjistsST4stxmFA' %>
+  <%= javascript_include_tag '//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js' %>
+  <%= javascript_include_tag '//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js', type: 'text/javascript' %>
   <%= csrf_meta_tags %>
   <h1>GARAGE SALE</h1>
 <p>Your search for garage sales ends here</p>
@@ -13,6 +16,8 @@
     <%= current_user.first_name %>
     <%= current_user.last_name %> 
     <%= link_to "Log out", logout_path, method: "delete" %> 
+    <%= link_to "My sales", usersale_path%>
+    <%= link_to "Home", sales_path%>
 <% else %> 
     <%= link_to "Login", '/login' %></a> 
     <%= link_to "Signup", '/signup' %></a> 

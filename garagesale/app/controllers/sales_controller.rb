@@ -1,6 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
-  before_action :require_user, only: [:new, :edit, :update, :destroy, :create]
+  before_action :require_user, only: [:new, :edit, :update, :destroy, :create, :usersales]
   # GET /sales
   # GET /sales.json
   def index
@@ -19,6 +19,9 @@ class SalesController < ApplicationController
 
   # GET /sales/1/edit
   def edit
+    if @sale.user_auth_token != @current_user.auth_token
+        redirect_to sales_url, notice: 'You do not have authorization to update the sale.'
+        end 
   end
 
   # POST /sales
@@ -65,6 +68,14 @@ class SalesController < ApplicationController
           format.json { head :no_content }
         end
       end
+  end
+  def usersales
+    @usersales ||= []
+    Sale.all.each do |sale|
+     if sale.user_auth_token == @current_user.auth_token 
+       @usersales = @usersales.to_a.push sale
+    end
+  end
   end
 
   private

@@ -19,7 +19,7 @@
   </thead>
 
   <tbody>
-    <% @sales.each do |sale| %>
+    <% @usersales.each do |sale| %>
       <tr>
         <td><%= sale.title %></td>
         <td><%= sale.description %></td>
@@ -31,7 +31,8 @@
         <td><%= sale.zip_code %></td>
         <td><%= image_tag sale.image.url(:medium) %></td>
         <td><%= link_to 'Show', sale %></td>
-        
+        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
+        <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

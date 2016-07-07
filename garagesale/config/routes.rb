@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
   resources :password_resets,     only: [:new, :create, :edit, :update]
+  get '/usersales', to: 'sales#usersales', as: 'usersale'
+  # post '/usersales', to:'sales#usersales', as: 'usersale'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
