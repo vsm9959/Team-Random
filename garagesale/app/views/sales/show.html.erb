@@ -1,5 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    loadMap(<%= @lat %>, <%= @lng %>);
+  });
+</script>
+
+<div style='width: 800px;float: right;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
 <p>
   <strong>Title:</strong>
   <%= @sale.title %>

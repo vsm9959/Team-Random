@@ -10,6 +10,13 @@ class SalesController < ApplicationController
   # GET /sales/1
   # GET /sales/1.json
   def show
+    @sale = Sale.find(params[:id])
+    @sale_address = @sale.address_line1 + " " + @sale.address_line2 + " " + @sale.city + " " + @sale.state
+    @geocode = Geokit::Geocoders::GoogleGeocoder.geocode(@sale_address)
+    @latlng = @geocode.ll
+    @lat, @lng = @latlng.split(",")
+    print("Lat = " + @lat)
+    print("Lng = " + @lng)
   end
 
   # GET /sales/new
@@ -21,7 +28,7 @@ class SalesController < ApplicationController
   def edit
     if @sale.user_auth_token != @current_user.auth_token
         redirect_to sales_url, notice: 'You do not have authorization to update the sale.'
-        end 
+    end 
   end
 
   # POST /sales
@@ -72,10 +79,10 @@ class SalesController < ApplicationController
   def usersales
     @usersales ||= []
     Sale.all.each do |sale|
-     if sale.user_auth_token == @current_user.auth_token 
+      if sale.user_auth_token == @current_user.auth_token 
        @usersales = @usersales.to_a.push sale
+      end
     end
-  end
   end
 
   private
