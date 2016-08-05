@@ -11,6 +11,15 @@ Rails.application.configure do
    :authentication       => 'plain',
    :enable_starttls_auto => true  
 }
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      bucket: ENV.fetch('garagesalepics'),
+      access_key_id: ENV.fetch('AKIAIHBCC3PULUZ6NKFA'),
+      secret_access_key: ENV.fetch('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'),
+      s3_region: ENV.fetch('Oregon'),
+    }
+  }
   # Code is not reloaded between requests.
   config.cache_classes = true
 

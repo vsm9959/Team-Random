@@ -6,7 +6,16 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-
+  require 'aws-sdk'
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      bucket: 'garagesalepics',
+      access_key_id: 'AKIAIHBCC3PULUZ6NKFA',
+      secret_access_key: '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',
+      s3_region: 'us-west-2',
+    }
+  }
   # Do not eager load code on boot.
   config.eager_load = false
 

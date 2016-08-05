@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
  
+  resources :sales do
+    resources :products
+  end
  # get 'password_resets/new'
 
   #get 'password_resets/edit'
@@ -13,13 +16,11 @@ Rails.application.routes.draw do
   root 'sales#index'
   get '/signup' => 'users#new'
   resources :users 
-  resources :sales
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
   resources :password_resets,     only: [:new, :create, :edit, :update]
   get '/usersales', to: 'sales#usersales', as: 'usersale'
-  # post '/usersales', to:'sales#usersales', as: 'usersale'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
