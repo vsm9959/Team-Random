@@ -17,6 +17,7 @@ class SalesController < ApplicationController
     @lat, @lng = @latlng.split(",")
     print("Lat = " + @lat)
     print("Lng = " + @lng)
+    @products =  Product.where(sale_id: @sale.id)
   end
 
   # GET /sales/new

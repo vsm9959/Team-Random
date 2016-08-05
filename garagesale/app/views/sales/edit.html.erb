@@ -1,6 +1,6 @@
 <h1>Editing Sale</h1>
 
 <%= render 'form' %>
-
+<%= link_to 'Add products', new_sale_product_path(@sale) %>
 <%= link_to 'Show', @sale %> |
 <%= link_to 'Back', sales_path %>

@@ -55,5 +55,25 @@
   <%= image_tag @sale.image.url(:medium) %>
 </p>
 
+<h1> Listing Products </h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.all.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.price%></td>
+        <td><%= link_to 'Show', sale_product_url(@sale,product) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
 <%= link_to 'Back', sales_path %>
