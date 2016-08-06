@@ -5,18 +5,17 @@ class SalesController < ApplicationController
   # GET /sales.json
   def index
     @sales = Sale.all
+    @coords = []
+    @sales.each do |sale|
+      @coords << {:lat=>sale.get_lat_lng()[0], :lng=>sale.get_lat_lng()[1]}
+    end
   end
 
   # GET /sales/1
   # GET /sales/1.json
   def show
     @sale = Sale.find(params[:id])
-    @sale_address = @sale.address_line1 + " " + @sale.address_line2 + " " + @sale.city + " " + @sale.state
-    @geocode = Geokit::Geocoders::GoogleGeocoder.geocode(@sale_address)
-    @latlng = @geocode.ll
-    @lat, @lng = @latlng.split(",")
-    print("Lat = " + @lat)
-    print("Lng = " + @lng)
+    @coords = [{:lat=>@sale.get_lat_lng()[0], :lng=>@sale.get_lat_lng()[1]}]
     @products =  Product.where(sale_id: @sale.id)
   end
 

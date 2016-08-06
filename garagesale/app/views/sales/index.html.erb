@@ -2,7 +2,22 @@
 
 <h1>Listing Sales</h1>
 
-<table>
+
+<%= javascript_tag do %>
+  salesData = <%= raw @sales.to_json %>;
+  coords = <%= raw @coords.to_json %>
+  $(document).ready(function(){
+    loadMap(coords, salesData);
+  });
+<% end %>
+
+
+
+<div style='width: 800px;margin:auto;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
+
+<table style='margin:auto;'>
   <thead>
     <tr>
       <th>Title</th>
