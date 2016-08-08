@@ -9,29 +9,32 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <h1>GARAGE SALE</h1>
-<p>Your search for garage sales ends here</p>
+  
+  <div style="margin:auto;text-align:center;">
+    <h1>GARAGE SALE</h1>
+    <p>Your search for garage sales ends here</p>
 
-<% if current_user %> 
-     Hi 
-    <%= current_user.first_name %>
-    <%= current_user.last_name %> 
-    <%= link_to "Log out", logout_path, method: "delete" %> 
-    <%= link_to "My sales", usersale_path%>
-    <%= link_to "Home", sales_path%>
-<% else %> 
-    <%= link_to "Home", root_path%>
-    <%= link_to "Login", '/login' %></a> 
-    <%= link_to "Signup", '/signup' %></a> 
-<% end %>
-<% if flash[:error] -%>
-  <p class='error'><%=h flash[:error] %></p>
-<% end -%>
-<% if flash[:notice] -%>
-  <p class='notice'><%=h flash[:notice] %></p>
-<% end -%>
+    <% if current_user %> 
+         Hi 
+        <%= current_user.first_name %>
+        <%= current_user.last_name %> 
+        <%= link_to "Log out", logout_path, method: "delete" %> 
+        <%= link_to "My sales", usersale_path%>
+        <%= link_to "Home", sales_path%>
+    <% else %> 
+        <%= link_to "Home", root_path%>
+        <%= link_to "Login", '/login' %></a> 
+        <%= link_to "Signup", '/signup' %></a> 
+    <% end %>
+    <% if flash[:error] -%>
+      <p class='error'><%=h flash[:error] %></p>
+    <% end -%>
+    <% if flash[:notice] -%>
+      <p class='notice'><%=h flash[:notice] %></p>
+    <% end -%>
+  </div>
 </head>
 <body>
-<%= yield %>
+  <%= yield %>
 </body>
 </html>

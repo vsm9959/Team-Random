@@ -1,12 +1,15 @@
 
+var defaultPicture = "";
+
+setDefaultPicture = function(pictureURL) {
+  defaultPicture = pictureURL;
+};
+
 loadMap = function(coords, salesData){
   var valid = coords.length === salesData.length;
   var numSales = coords.length;
   var multi = numSales > 1;
   
-    //alert(lat + " " + lng);
-    //var latitude = lat || 0
-    //var longitude = lng || 0
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     var saleMarkers = [];
@@ -15,11 +18,13 @@ loadMap = function(coords, salesData){
         "lat": coords[i].lat,
         "lng": coords[i].lng,
         "picture": {
-          "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
+          "url": defaultPicture,
           "width":  32,
           "height": 32
         },
-        "infowindow": salesData[i].description
+        "infowindow": ("<b><u>" + salesData[i].title + "</u></b><br/>" + 
+                      salesData[i].description + "<br/>" + 
+                      "<a href='/sales/" + salesData[i].id + "'>Go to sale</a>")
       };
       saleMarkers.push(saleMarker);
     }
@@ -27,10 +32,9 @@ loadMap = function(coords, salesData){
       saleMarkers
     );
     handler.bounds.extendWith(markers);
-    //handler.map.centerOn(marker);
     handler.fitMapToBounds();
-    if(!multi) {handler.getMap().setZoom(18);}
-    /*if(navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(displayOnMap);*/
+    if(!multi) {
+      handler.getMap().setZoom(18);
+    }
   });
 };
