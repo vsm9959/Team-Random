@@ -9,8 +9,7 @@ class Sale < ActiveRecord::Base
     @geocode = Geokit::Geocoders::GoogleGeocoder.geocode(@sale_address)
     @latlng = @geocode.ll
     @lat, @lng = @latlng.split(",")
-    print("Lat = " + @lat)
-    print("Lng = " + @lng)
+
     return [@lat, @lng]
   end
 end
